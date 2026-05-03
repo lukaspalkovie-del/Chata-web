@@ -27,10 +27,18 @@ flex-wrap:wrap;
 padding:10px;
 box-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
+nav a {
+margin:10px;
+text-decoration:none;
+color:#333;
+font-weight:bold;
+}
 
-nav a {margin:10px;text-decoration:none;color:#333;font-weight:bold;}
-
-.container {max-width:1100px;margin:auto;padding:20px;}
+.container {
+max-width:1100px;
+margin:auto;
+padding:20px;
+}
 
 .card {
 background:white;
@@ -38,19 +46,18 @@ padding:25px;
 margin:20px 0;
 border-radius:12px;
 box-shadow:0 4px 15px rgba(0,0,0,0.08);
-opacity:0;
-transform:translateY(20px);
-transition:0.6s;
 }
 
-.card.visible {
-opacity:1;
-transform:translateY(0);
+.grid {
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
 }
 
-.grid {display:grid;grid-template-columns:1fr 1fr;gap:20px;}
-
-img {width:100%;border-radius:10px;}
+img {
+width:100%;
+border-radius:10px;
+}
 
 .review {
 background:#f1f1f1;
@@ -68,23 +75,13 @@ border-radius:8px;
 cursor:pointer;
 }
 
-button:hover {background:#1b5e20;}
-
-input {width:100%;padding:10px;margin:5px 0;}
-
-.lang-switch {
-position:absolute;
-top:20px;
-right:20px;
+input {
+width:100%;
+padding:10px;
+margin:5px 0;
 }
 
-.lang-switch button {
-margin:2px;
-padding:6px;
-font-size:12px;
-}
-
-/* CHAT */
+/* CHATBOT */
 .chatbox {
 position:fixed;
 bottom:20px;
@@ -95,19 +92,16 @@ border-radius:10px;
 box-shadow:0 0 15px rgba(0,0,0,0.2);
 z-index:999;
 }
-
 .chat-header {
 background:#2e7d32;
 color:white;
 padding:10px;
 }
-
 .chat-body {
 padding:10px;
 height:150px;
 overflow:auto;
 }
-
 .chat-input {
 width:100%;
 padding:10px;
@@ -121,25 +115,15 @@ color:white;
 text-align:center;
 padding:20px;
 }
-
-@media(max-width:768px){
-.grid {grid-template-columns:1fr;}
-.hero h1 {font-size:26px;}
-}
 </style>
 </head>
 
 <body>
 
 <div class="hero">
-<div class="lang-switch">
-<button onclick="setLang('sk')">SK</button>
-<button onclick="setLang('en')">EN</button>
-<button onclick="setLang('de')">DE</button>
-</div>
-
-<h1 id="title">Chata bez obmedzení</h1>
-<p id="subtitle">Oddych bez prekážok pre každého</p>
+<h1>Chata bez obmedzení</h1>
+<p>v srdci Javorníkov</p>
+<p>Oddych bez prekážok pre každého</p>
 </div>
 
 <nav>
@@ -149,98 +133,115 @@ padding:20px;
 <a href="#area">Okolie</a>
 <a href="#reviews">Recenzie</a>
 <a href="#booking">Rezervácia</a>
+<a href="#contact">Kontakt</a>
 </nav>
 
 <div class="container">
 
-<div class="card"><h2>Ubytovanie</h2>
+<div class="card" id="rooms">
+<h2>Ubytovanie</h2>
+<div class="grid">
+<div>
+<img src="apartman1.jpg">
+<h3>Apartmán 2+1</h3>
+</div>
+<div>
+<img src="apartman2.jpg">
+<h3>Apartmán 3+1</h3>
+</div>
+</div>
+</div>
+
+<div class="card" id="services">
+<h2>Služby</h2>
+<ul>
+<li>🍽️ Menu v chladničke</li>
+<li>🦽 Požičovňa pomôcok</li>
+<li>🧭 Sprievodca</li>
+<li>🐕 Vodiaci pes</li>
+</ul>
+<img src="pozicovna.jpg">
+</div>
+
+<div class="card" id="gallery">
+<h2>Galéria</h2>
 <div class="grid">
 <img src="apartman1.jpg">
-<img src="apartman2.jpg">
-</div></div>
-
-<div class="card"><h2>Služby</h2>
-<ul>
-<li>Menu v chladničke</li>
-<li>Požičovňa pomôcok</li>
-<li>Sprievodca</li>
-<li>Vodiaci pes</li>
-</ul></div>
-
-<div class="card"><h2>Hodnotenie</h2>
-<h3>⭐⭐⭐⭐⭐ 9.5 / 10</h3>
+<img src="kupelna.jpg">
+</div>
 </div>
 
-<div class="card"><h2>Rezervácia</h2>
+<div class="card" id="area">
+<h2>Okolie</h2>
+<img src="turistika.jpg">
+<p>Bezbariérová turistika v Javorníkoch</p>
+</div>
+
+<div class="card" id="reviews">
+<h2>Hodnotenie</h2>
+<h3>⭐ 9.5 / 10</h3>
+<div class="review">Perfektný oddych</div>
+<div class="review">Top bezbariérovosť</div>
+</div>
+
+<div class="card" id="booking">
+<h2>Rezervácia</h2>
 <form onsubmit="return saveBooking()">
-<input id="name" placeholder="Meno">
-<input id="date" type="date">
-<button>Rezervovať</button>
-</form></div>
+<input id="name" placeholder="Meno" required>
+<input id="date" type="date" required>
+<button type="submit">Rezervovať</button>
+</form>
+</div>
+
+<div class="card" id="contact">
+<h2>Kontakt</h2>
+<p>📞 +421 900 000 000</p>
+</div>
 
 </div>
 
-<footer>© Chata bez obmedzení</footer>
+<footer>
+<p>© Chata bez obmedzení</p>
+</footer>
 
-<!-- CHAT -->
+<!-- CHATBOT -->
 <div class="chatbox">
 <div class="chat-header">Chat</div>
 <div class="chat-body" id="chatBody">
 <p><b>Bot:</b> Dobrý deň 👋</p>
 </div>
-<input class="chat-input" id="chatInput" onkeypress="chat(event)">
+<input class="chat-input" id="chatInput" placeholder="Napíš..." onkeypress="chat(event)">
 </div>
 
 <script>
-// rezervácia
 function saveBooking(){
-let data = JSON.parse(localStorage.getItem("b"))||[];
-data.push({n:name.value});
-localStorage.setItem("b",JSON.stringify(data));
-alert("OK");
+let data = JSON.parse(localStorage.getItem("bookings")) || [];
+data.push({name:name.value,date:date.value});
+localStorage.setItem("bookings",JSON.stringify(data));
+alert("Rezervácia uložená!");
 return false;
 }
 
-// chatbot
 function chat(e){
-if(e.key==="Enter"){
-let msg=chatInput.value.toLowerCase();
-let r="Neviem.";
-if(msg.includes("cena")||msg.includes("koľko")) r="50€/noc";
-if(msg.includes("pes")) r="Áno";
-if(msg.includes("menu")) r="Pripravené";
+if(e.key === "Enter"){
+let input = document.getElementById("chatInput");
+let msg = input.value.toLowerCase();
+let body = document.getElementById("chatBody");
 
-chatBody.innerHTML+=`<p>Ty: ${msg}</p><p>Bot: ${r}</p>`;
-chatInput.value="";
-}
-}
+body.innerHTML += "<p><b>Ty:</b> " + msg + "</p>";
 
-// jazyk
-function setLang(l){
-if(l=="en"){
-title.innerText="Accessible Cottage";
-subtitle.innerText="Relax without barriers";
-}
-if(l=="de"){
-title.innerText="Barrierefreie Hütte";
-subtitle.innerText="Erholung ohne Barrieren";
-}
-if(l=="sk"){
-title.innerText="Chata bez obmedzení";
-subtitle.innerText="Oddych bez prekážok";
-}
-}
+let r = "Neviem odpovedať.";
+if(msg.includes("cena")) r = "Cena od 50€/noc.";
+if(msg.includes("pes")) r = "Áno, vodiaci pes je možný.";
+if(msg.includes("menu")) r = "Menu je pripravené v chladničke.";
+if(msg.includes("rezervácia")) r = "Použite formulár nižšie.";
 
-// animácie
-const cards=document.querySelectorAll(".card");
-window.addEventListener("scroll",()=>{
-cards.forEach(c=>{
-let top=c.getBoundingClientRect().top;
-if(top<window.innerHeight-50){
-c.classList.add("visible");
+body.innerHTML += "<p><b>Bot:</b> " + r + "</p>";
+
+input.value = "";
+body.scrollTop = body.scrollHeight;
 }
-});
-});
+}
 </script>
 
 </body>
