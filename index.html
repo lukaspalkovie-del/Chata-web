@@ -27,6 +27,7 @@ flex-wrap:wrap;
 padding:10px;
 box-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
+
 nav a {
 margin:10px;
 text-decoration:none;
@@ -75,6 +76,10 @@ border-radius:8px;
 cursor:pointer;
 }
 
+button:hover {
+background:#1b5e20;
+}
+
 input {
 width:100%;
 padding:10px;
@@ -92,16 +97,19 @@ border-radius:10px;
 box-shadow:0 0 15px rgba(0,0,0,0.2);
 z-index:999;
 }
+
 .chat-header {
 background:#2e7d32;
 color:white;
 padding:10px;
 }
+
 .chat-body {
 padding:10px;
 height:150px;
 overflow:auto;
 }
+
 .chat-input {
 width:100%;
 padding:10px;
@@ -179,9 +187,9 @@ padding:20px;
 
 <div class="card" id="reviews">
 <h2>Hodnotenie</h2>
-<h3>⭐ 9.5 / 10</h3>
-<div class="review">Perfektný oddych</div>
-<div class="review">Top bezbariérovosť</div>
+<h3>⭐⭐⭐⭐⭐ 9.5 / 10</h3>
+<div class="review">„Perfektný oddych“</div>
+<div class="review">„Top bezbariérovosť“</div>
 </div>
 
 <div class="card" id="booking">
@@ -193,9 +201,43 @@ padding:20px;
 </form>
 </div>
 
+<!-- KONTAKT -->
 <div class="card" id="contact">
 <h2>Kontakt</h2>
-<p>📞 +421 900 000 000</p>
+
+<p>📍 Javorníky, Slovensko</p>
+
+<p>📞 <a href="tel:+421900123456">+421 900 123 456</a></p>
+<p>📞 <a href="tel:+421901987654">+421 901 987 654 (info linka)</a></p>
+
+<p>📧 <a href="mailto:info@chata-bezobmedzeni.sk">info@chata-bezobmedzeni.sk</a></p>
+
+<p>🕒 Dostupnosť: 08:00 – 20:00</p>
+
+<hr>
+
+<h3>Sociálne siete</h3>
+<p>
+📘 Facebook: Chata bez obmedzení<br>
+📷 Instagram: @chata_bez_obmedzeni
+</p>
+
+<hr>
+
+<h3>Kontaktný formulár</h3>
+<form onsubmit="sendMessage(event)">
+<input placeholder="Vaše meno" required>
+<input type="email" placeholder="Email" required>
+<input placeholder="Správa" required>
+<button type="submit">Odoslať</button>
+</form>
+
+<hr>
+
+<h3>Mapa</h3>
+<iframe src="https://www.google.com/maps?q=Javorniky&output=embed"
+width="100%" height="250" style="border:0;"></iframe>
+
 </div>
 
 </div>
@@ -214,6 +256,7 @@ padding:20px;
 </div>
 
 <script>
+// rezervácia
 function saveBooking(){
 let data = JSON.parse(localStorage.getItem("bookings")) || [];
 data.push({name:name.value,date:date.value});
@@ -222,10 +265,16 @@ alert("Rezervácia uložená!");
 return false;
 }
 
+// formulár
+function sendMessage(e){
+e.preventDefault();
+alert("Správa bola odoslaná (simulácia)");
+}
+
+// chatbot
 function chat(e){
 if(e.key === "Enter"){
-let input = document.getElementById("chatInput");
-let msg = input.value.toLowerCase();
+let msg = chatInput.value.toLowerCase();
 let body = document.getElementById("chatBody");
 
 body.innerHTML += "<p><b>Ty:</b> " + msg + "</p>";
@@ -233,12 +282,12 @@ body.innerHTML += "<p><b>Ty:</b> " + msg + "</p>";
 let r = "Neviem odpovedať.";
 if(msg.includes("cena")) r = "Cena od 50€/noc.";
 if(msg.includes("pes")) r = "Áno, vodiaci pes je možný.";
-if(msg.includes("menu")) r = "Menu je pripravené v chladničke.";
-if(msg.includes("rezervácia")) r = "Použite formulár nižšie.";
+if(msg.includes("menu")) r = "Menu je pripravené.";
+if(msg.includes("kontakt")) r = "Kontakt nájdete nižšie na stránke.";
 
 body.innerHTML += "<p><b>Bot:</b> " + r + "</p>";
 
-input.value = "";
+chatInput.value="";
 body.scrollTop = body.scrollHeight;
 }
 }
