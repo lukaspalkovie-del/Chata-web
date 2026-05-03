@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chata bez obmedzení | Javorníky</title>
+
+<style>
+body {margin:0;font-family:'Segoe UI';background:#f5f7fa;}
+
+.hero {
+background:url('hero.jpg') center/cover;
+height:70vh;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+text-shadow:0 2px 10px black;
+}
+
+nav {
+background:white;
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+padding:10px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+nav a {
+margin:10px;
+text-decoration:none;
+color:#333;
+font-weight:bold;
+}
+
+.container {
+max-width:1100px;
+margin:auto;
+padding:20px;
+}
+
+.card {
+background:white;
+padding:25px;
+margin:20px 0;
+border-radius:12px;
+box-shadow:0 4px 15px rgba(0,0,0,0.08);
+}
+
+.grid {
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+img {
+width:100%;
+border-radius:10px;
+}
+
+.review {
+background:#f1f1f1;
+padding:15px;
+border-radius:10px;
+margin:10px 0;
+}
+
+button {
+background:#2e7d32;
+color:white;
+border:none;
+padding:12px;
+border-radius:8px;
+cursor:pointer;
+}
+
+input {
+width:100%;
+padding:10px;
+margin:5px 0;
+}
+
+/* CHATBOT */
+.chatbox {
+position:fixed;
+bottom:20px;
+right:20px;
+width:260px;
+background:white;
+border-radius:10px;
+box-shadow:0 0 15px rgba(0,0,0,0.2);
+z-index:999;
+}
+.chat-header {
+background:#2e7d32;
+color:white;
+padding:10px;
+}
+.chat-body {
+padding:10px;
+height:150px;
+overflow:auto;
+}
+.chat-input {
+width:100%;
+padding:10px;
+border:none;
+border-top:1px solid #ccc;
+}
+
+footer {
+background:#1b5e20;
+color:white;
+text-align:center;
+padding:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="hero">
+<h1>Chata bez obmedzení</h1>
+<p>v srdci Javorníkov</p>
+<p>Oddych bez prekážok pre každého</p>
+</div>
+
+<nav>
+<a href="#rooms">Ubytovanie</a>
+<a href="#services">Služby</a>
+<a href="#gallery">Galéria</a>
+<a href="#area">Okolie</a>
+<a href="#reviews">Recenzie</a>
+<a href="#booking">Rezervácia</a>
+<a href="#contact">Kontakt</a>
+</nav>
+
+<div class="container">
+
+<div class="card" id="rooms">
+<h2>Ubytovanie</h2>
+<div class="grid">
+<div>
+<img src="apartman1.jpg">
+<h3>Apartmán 2+1</h3>
+</div>
+<div>
+<img src="apartman2.jpg">
+<h3>Apartmán 3+1</h3>
+</div>
+</div>
+</div>
+
+<div class="card" id="services">
+<h2>Služby</h2>
+<ul>
+<li>🍽️ Menu v chladničke</li>
+<li>🦽 Požičovňa pomôcok</li>
+<li>🧭 Sprievodca</li>
+<li>🐕 Vodiaci pes</li>
+</ul>
+<img src="pozicovna.jpg">
+</div>
+
+<div class="card" id="gallery">
+<h2>Galéria</h2>
+<div class="grid">
+<img src="apartman1.jpg">
+<img src="kupelna.jpg">
+</div>
+</div>
+
+<div class="card" id="area">
+<h2>Okolie</h2>
+<img src="turistika.jpg">
+<p>Bezbariérová turistika v Javorníkoch</p>
+</div>
+
+<div class="card" id="reviews">
+<h2>Hodnotenie</h2>
+<h3>⭐ 9.5 / 10</h3>
+<div class="review">Perfektný oddych</div>
+<div class="review">Top bezbariérovosť</div>
+</div>
+
+<div class="card" id="booking">
+<h2>Rezervácia</h2>
+<form onsubmit="return saveBooking()">
+<input id="name" placeholder="Meno" required>
+<input id="date" type="date" required>
+<button type="submit">Rezervovať</button>
+</form>
+</div>
+
+<div class="card" id="contact">
+<h2>Kontakt</h2>
+<p>📞 +421 900 000 000</p>
+</div>
+
+</div>
+
+<footer>
+<p>© Chata bez obmedzení</p>
+</footer>
+
+<!-- CHATBOT -->
+<div class="chatbox">
+<div class="chat-header">Chat</div>
+<div class="chat-body" id="chatBody">
+<p><b>Bot:</b> Dobrý deň 👋</p>
+</div>
+<input class="chat-input" id="chatInput" placeholder="Napíš..." onkeypress="chat(event)">
+</div>
+
+<script>
+function saveBooking(){
+let data = JSON.parse(localStorage.getItem("bookings")) || [];
+data.push({name:name.value,date:date.value});
+localStorage.setItem("bookings",JSON.stringify(data));
+alert("Rezervácia uložená!");
+return false;
+}
+
+function chat(e){
+if(e.key === "Enter"){
+let input = document.getElementById("chatInput");
+let msg = input.value.toLowerCase();
+let body = document.getElementById("chatBody");
+
+body.innerHTML += "<p><b>Ty:</b> " + msg + "</p>";
+
+let r = "Neviem odpovedať.";
+if(msg.includes("cena")) r = "Cena od 50€/noc.";
+if(msg.includes("pes")) r = "Áno, vodiaci pes je možný.";
+if(msg.includes("menu")) r = "Menu je pripravené v chladničke.";
+if(msg.includes("rezervácia")) r = "Použite formulár nižšie.";
+
+body.innerHTML += "<p><b>Bot:</b> " + r + "</p>";
+
+input.value = "";
+body.scrollTop = body.scrollHeight;
+}
+}
+</script>
+
+</body>
+</html>
